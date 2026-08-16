@@ -120,14 +120,14 @@ if uploaded_file is not None:
 
         # Select primary key columns to present clearly
         display_cols = ['Predicted_Diagnosis', 'Heart_Disease_Risk (%)', 'Actual_Ground_Truth'] + [c for c in ['age', 'sex', 'cp', 'trestbps', 'chol'] if c in df.columns]
-        
+
         st.dataframe(
-            results_df[display_cols].style.applymap(
-                lambda val: 'background-color: #FEE2E2; font-weight: bold;' if val == "⚠️ Disease Detected" else ('background-color: #D1FAE5; font-weight: bold;' if val == "✅ Healthy / No Disease" else ''),
-                subset=['Predicted_Diagnosis']
-            ),
-            use_container_width=True
-        )
+    results_df[display_cols].style.map(
+        lambda val: 'background-color: #FEE2E2; font-weight: bold;' if val == "⚠️ Disease Detected" else ('background-color: #D1FAE5; font-weight: bold;' if val == "✅ Healthy / No Disease" else ''),
+        subset=['Predicted_Diagnosis']
+    ),
+    use_container_width=True
+)
 
         # Dataset Diagnostic Breakdown Summary
         total_patients = len(y_pred)
